@@ -1,21 +1,19 @@
 package com.example.xyzreader.ui;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.LoaderManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -33,6 +31,8 @@ import butterknife.ButterKnife;
 public class ArticleDetailActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final String EXTRA_ITEM_ID = "extra_item_id";
+
     @BindView(R.id.pager) ViewPager mPager;
     @BindView(R.id.detail_backdrop) ImageView mBackDrop;
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -43,6 +43,13 @@ public class ArticleDetailActivity extends AppCompatActivity
     private long mSelectedItemId;
 
     private MyPagerAdapter mPagerAdapter;
+
+    public static Intent getIntent(Context context, long selectedItemId){
+        Intent intent = new Intent(context, ArticleDetailActivity.class);
+        intent.putExtra(EXTRA_ITEM_ID, selectedItemId);
+        return intent;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +85,11 @@ public class ArticleDetailActivity extends AppCompatActivity
             }
         });
 
-        if (savedInstanceState == null) {
+        if (getIntent() != null && getIntent().getExtras().containsKey(EXTRA_ITEM_ID)){
+            mStartId = getIntent().getExtras().getLong(EXTRA_ITEM_ID);
+            mSelectedItemId = mStartId;
+        }
+        else if (savedInstanceState == null) {
             if (getIntent() != null && getIntent().getData() != null) {
                 mStartId = ItemsContract.Items.getItemId(getIntent().getData());
                 mSelectedItemId = mStartId;
@@ -88,9 +99,16 @@ public class ArticleDetailActivity extends AppCompatActivity
 
     private void updateHeader() {
         if (mCursor != null) {
-//            Picasso.with(this)
-//                    .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-//                    .into(mBackDrop);
+            String url = mCursor.getString(ArticleLoader.Query.PHOTO_URL);
+            if (TextUtils.isEmpty(url)){
+                url = mCursor.getString(ArticleLoader.Query.THUMB_URL);
+            }
+
+            if (!TextUtils.isEmpty(url)) {
+                Picasso.with(this)
+                        .load(url)
+                        .into(mBackDrop);
+            }
 
         }
     }
