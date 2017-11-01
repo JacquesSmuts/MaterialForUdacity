@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends Activity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final String TAG = ArticleListActivityOld.class.toString();
+    private static final String TAG = MainActivity.class.toString();
 
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
@@ -146,7 +146,7 @@ public class MainActivity extends Activity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(ArticleDetailActivityOld.getIntent(MainActivity.this,
+                    startActivity(ArticleDetailActivity.getIntent(MainActivity.this,
                             getItemId(vh.getAdapterPosition())));
 //                    Uri uri =  ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()));
 //                    startActivity(new Intent(Intent.ACTION_VIEW, uri));

@@ -26,12 +26,12 @@ import com.example.xyzreader.data.ArticleLoader;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
- * either contained in a {@link ArticleListActivityOld} in two-pane mode (on
- * tablets) or a {@link ArticleDetailActivityOld} on handsets.
+ * either contained in a {@link MainActivity} in two-pane mode (on
+ * tablets) or a {@link ArticleDetailActivity} on handsets.
  */
-public class ArticleDetailFragmentOld extends Fragment implements
+public class ArticleDetailFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = "ArticleDetailFragmentOld";
+    private static final String TAG = "ArticleDetailFragment";
 
     public static final String ARG_ITEM_ID = "item_id";
 
@@ -52,13 +52,13 @@ public class ArticleDetailFragmentOld extends Fragment implements
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ArticleDetailFragmentOld() {
+    public ArticleDetailFragment() {
     }
 
-    public static ArticleDetailFragmentOld newInstance(long itemId) {
+    public static ArticleDetailFragment newInstance(long itemId) {
         Bundle arguments = new Bundle();
         arguments.putLong(ARG_ITEM_ID, itemId);
-        ArticleDetailFragmentOld fragment = new ArticleDetailFragmentOld();
+        ArticleDetailFragment fragment = new ArticleDetailFragment();
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -75,8 +75,8 @@ public class ArticleDetailFragmentOld extends Fragment implements
         setHasOptionsMenu(true);
     }
 
-    public ArticleDetailActivityOld getActivityCast() {
-        return (ArticleDetailActivityOld) getActivity();
+    public ArticleDetailActivity getActivityCast() {
+        return (ArticleDetailActivity) getActivity();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class ArticleDetailFragmentOld extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_article_detail_old, container, false);
+        mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
         bindViews();
         return mRootView;
