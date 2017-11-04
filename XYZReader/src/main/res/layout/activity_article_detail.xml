@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
-    android:fitsSystemWindows="true"
     >
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:fitsSystemWindows="true" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- There is a white bar at the bottom of my AppBar that I can't remove or figure out. Any tips?-->
 
@@ -21,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:background="@color/theme_primary"
-        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:elevation="4dp"
         >
 
@@ -30,7 +28,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/theme_primary"
+            app:statusBarScrim="@color/theme_primary"
+            android:background="@color/theme_primary"
+            app:expandedTitleTextAppearance="@style/TransparentTitle"
+            app:collapsedTitleTextAppearance="@style/WhiteTitle">
             >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:background="@color/theme_primary"
+                app:layout_collapseMode="pin"
+                />
 
             <ImageView
                 android:id="@+id/detail_backdrop"
@@ -41,14 +53,6 @@
                 android:transitionName="@string/transition_name_article_detail_image"
                 />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                android:background="@color/theme_primary"
-                app:layout_collapseMode="pin"
-                />
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>

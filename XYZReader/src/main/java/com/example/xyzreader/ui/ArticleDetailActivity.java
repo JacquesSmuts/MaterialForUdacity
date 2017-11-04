@@ -112,6 +112,7 @@ public class ArticleDetailActivity extends AppCompatActivity
                         .into(mBackDrop);
             }
 
+            setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
         }
     }
 
