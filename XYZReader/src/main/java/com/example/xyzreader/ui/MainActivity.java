@@ -19,6 +19,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -152,8 +153,10 @@ public class MainActivity extends Activity implements
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
                         Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
                                 MainActivity.this,
-                                vh.thumbnailView,
-                                vh.thumbnailView.getTransitionName()).toBundle();
+                                Pair.create((View) vh.thumbnailView, vh.thumbnailView.getTransitionName()),
+                                Pair.create((View) vh.titleView, vh.titleView.getTransitionName()) )
+                                .toBundle();
+
                         startActivity(intent, bundle);
                     } else{
                         startActivity(intent);

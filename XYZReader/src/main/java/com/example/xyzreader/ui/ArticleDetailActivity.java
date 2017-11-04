@@ -9,11 +9,13 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -24,6 +26,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * An activity representing a single Article detail screen, letting you swipe between articles.
@@ -49,7 +52,6 @@ public class ArticleDetailActivity extends AppCompatActivity
         intent.putExtra(EXTRA_ITEM_ID, selectedItemId);
         return intent;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +113,16 @@ public class ArticleDetailActivity extends AppCompatActivity
             }
 
         }
+    }
+
+    @OnClick (R.id.share_fab)
+    public void share (View view){
+        startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setText(getString(R.string.share_text,
+                        mCursor.getString(ArticleLoader.Query.TITLE),
+                        mCursor.getString(ArticleLoader.Query.AUTHOR)))
+                .getIntent(), getString(R.string.action_share)));
     }
 
     @Override
