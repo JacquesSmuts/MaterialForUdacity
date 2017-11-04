@@ -1,6 +1,7 @@
 package com.example.xyzreader.ui;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -146,8 +147,17 @@ public class MainActivity extends Activity implements
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(ArticleDetailActivity.getIntent(MainActivity.this,
-                            getItemId(vh.getAdapterPosition())));
+                    Intent intent = ArticleDetailActivity.getIntent(MainActivity.this,
+                            getItemId(vh.getAdapterPosition()));
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+                        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(
+                                MainActivity.this,
+                                vh.thumbnailView,
+                                vh.thumbnailView.getTransitionName()).toBundle();
+                        startActivity(intent, bundle);
+                    } else{
+                        startActivity(intent);
+                    }
 //                    Uri uri =  ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()));
 //                    startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 }
