@@ -1,6 +1,5 @@
 package com.example.xyzreader.ui;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
@@ -12,7 +11,10 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -37,7 +39,7 @@ import java.util.GregorianCalendar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends Activity implements
+public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = MainActivity.class.toString();
@@ -48,6 +50,7 @@ public class MainActivity extends Activity implements
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.collapsingToolbar) CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.appBar) AppBarLayout appBar;
+    @BindView(R.id.coordinator_main) CoordinatorLayout coordinatorLayout;
 
     private boolean mIsRefreshing = false;
     private BroadcastReceiver mRefreshingReceiver;
@@ -121,6 +124,7 @@ public class MainActivity extends Activity implements
         StaggeredGridLayoutManager sglm =
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(sglm);
+        Snackbar.make(coordinatorLayout, R.string.finished_loading, Snackbar.LENGTH_SHORT).show();
     }
 
 
